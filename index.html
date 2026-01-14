@@ -87,6 +87,19 @@
     "Meeting":      L.divIcon({html: pill("M", "#9467bd"), className:""})
   };
 
+  const openUrl = getOpenUrl(item);
+  if (openUrl) {
+    a.href = openUrl;
+    a.target = "_blank";
+    a.rel = "noopener";
+    a.style.display = "";
+  } else {
+    // URLが無いものはリンク非表示
+    a.removeAttribute("href");
+    a.style.display = "none";
+  }
+
+
   function pill(letter, color){
     return `<div style="
       background:${color};
@@ -151,6 +164,14 @@
           <a href="${it.file}" target="_blank" rel="noopener">原寸を開く</a>
         </div>
       </div>`;
+  }
+
+  function getOpenUrl(item) {
+    if (!item) return null;
+    const kind = (item.kind || "photo").toLowerCase();
+    if (kind === "video") return item.url || null;
+    // photo
+    return item.path || item.file || null;
   }
 
   function ensureMarker(it) {

@@ -5048,4 +5048,16 @@ const DATA = [
     "type": "FireStation",
     "caption": ""
   }
+  {
+    "id": 10001,
+    "datetime": "2026:01:xx xx:xx:xx",
+    "lat": 34.0617,
+    "lon": -118.6485,
+    "alt": 471.941,
+    "type": "Video",
+    "caption": "test movie",
+    "path": "videos/test.mov",
+    "thumb": "vthumbs/test.jpg"
+  }
+
 ]
