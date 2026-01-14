@@ -5178,7 +5178,7 @@ const DATA = [
     "lat": 34.0499,
     "lon": -118.236,
     "url": "https://1drv.ms/v/c/6d553dc635bb5f4e/IQAaaUM48nnlToBHNcMciU5VAQLJkxnsuYUBge3y7xlHb0o?e=shLWJ9",
-    "thumb": "vthumbs/img_0571.jpg"
+    "thumb": "vthumbs/20260111_013646000_ios.jpg"
   },
   {
     "id": 472,
