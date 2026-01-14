@@ -87,19 +87,6 @@
     "Meeting":      L.divIcon({html: pill("M", "#9467bd"), className:""})
   };
 
-  const openUrl = getOpenUrl(item);
-  if (openUrl) {
-    a.href = openUrl;
-    a.target = "_blank";
-    a.rel = "noopener";
-    a.style.display = "";
-  } else {
-    // URLが無いものはリンク非表示
-    a.removeAttribute("href");
-    a.style.display = "none";
-  }
-
-
   function pill(letter, color){
     return `<div style="
       background:${color};
@@ -161,17 +148,14 @@
         <div class="p-meta">${dt} / ${it.lat.toFixed(6)}, ${it.lon.toFixed(6)}${alt}</div>
         <div class="p-cap">${cap ? cap : '<i style="color:#666">（キャプションなし）</i>'}</div>
         <div style="margin-top:8px;font-size:12px;">
-          <a href="${it.file}" target="_blank" rel="noopener">原寸を開く</a>
+          <a href="${
+            (it.kind === 'video')
+              ? it.url
+              : (it.path || it.file)
+          }" target="_blank" rel="noopener">原寸を開く</a>
+
         </div>
       </div>`;
-  }
-
-  function getOpenUrl(item) {
-    if (!item) return null;
-    const kind = (item.kind || "photo").toLowerCase();
-    if (kind === "video") return item.url || null;
-    // photo
-    return item.path || item.file || null;
   }
 
   function ensureMarker(it) {
@@ -212,7 +196,7 @@
         <img class="thumb" src="${it.thumb}" alt="thumb"/>
         <div class="meta">
           <div><span class="id">#${it.id}</span>${badge}</div>
-          <div class="small">${(it.datetime||'') + ' / ' + it.file}</div>
+          <div class="small">${(it.datetime||'') + ' / ' + it.path}</div>
           <div class="cap">${(it.caption||'').trim() || '（キャプションなし）'}</div>
         </div>`;
       div.onclick = () => {
@@ -248,7 +232,7 @@
       if (boxBounds && !boxBounds.contains([it.lat, it.lon])) return false;
 
       // search blob
-      const blob = `${it.file} ${it.datetime||''} ${it.caption||''}`.toLowerCase();
+      const blob = `${it.path} ${it.datetime||''} ${it.caption||''}`.toLowerCase();
       if (q && !blob.includes(q)) return false;
 
       return true;
